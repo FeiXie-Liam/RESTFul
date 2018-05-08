@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -13,6 +14,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     Company findById(Long id);
 
     @Modifying
-    @Query("update Company c set c.id=?1 where c.name=?2")
-    int setNameFor(String changedName, Long id);
+    @Transactional
+    @Query("update Company c set c.companyName=?2 where c.id=?1")
+    int setNameFor(Long id, String changedName);
 }

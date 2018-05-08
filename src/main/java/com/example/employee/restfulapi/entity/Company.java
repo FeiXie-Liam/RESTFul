@@ -19,7 +19,7 @@ public class Company implements Serializable {
     private String companyName;
     private Integer employeesNumber;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "company")
     private List<Employee> employees = new ArrayList<>();
 
     public Company() {

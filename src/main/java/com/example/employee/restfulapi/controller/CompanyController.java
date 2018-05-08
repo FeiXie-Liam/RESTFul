@@ -47,9 +47,14 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Company putCompany(@PathVariable Long id, @RequestParam String companyName){
-        companyRepository.setNameFor(companyName, id);
+    public Company putCompany(@PathVariable Long id, @RequestParam(required = false) String companyName){
+        companyRepository.setNameFor(id, companyName);
         return companyRepository.findById(id);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public List<Company> deleteCompanyById(@PathVariable Long id){
+        companyRepository.delete(id);
+        return companyRepository.findAll();
+    }
 }

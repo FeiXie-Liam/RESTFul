@@ -1,19 +1,32 @@
 package com.example.employee.restfulapi.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable{
     @Id
     @GeneratedValue
     private Long id;
+    @Column
     private String name;
+    @Column
     private Integer age;
+    @Column
     private String gender;
+//    @Column
+//    private Long companyId;
+    @Column
     private Integer salary;
-    private Long companyId;
+
+    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE },targetEntity = Company.class)
+    @JoinColumn(name = "companyId")
+    @JsonIgnore
+    private Company company;
 
     public Employee() {
     }
@@ -23,15 +36,7 @@ public class Employee {
         this.age = age;
         this.gender = gender;
         this.salary = salary;
-        this.companyId = companyId;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+//        this.companyId = companyId;
     }
 
     public Integer getSalary() {
@@ -71,4 +76,20 @@ public class Employee {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+//    public Long getCompanyId() {
+//        return companyId;
+//    }
+//
+//    public void setCompanyId(Long companyId) {
+//        this.companyId = companyId;
+//    }
 }

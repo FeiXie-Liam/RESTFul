@@ -23,7 +23,7 @@ public class Employee implements Serializable{
     @Column
     private Integer salary;
 
-    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE },targetEntity = Company.class)
+    @ManyToOne
     @JoinColumn(name = "companyId")
     @JsonIgnore
     private Company company;

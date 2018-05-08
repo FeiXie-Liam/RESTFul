@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,9 +19,8 @@ public class Company implements Serializable {
     private String companyName;
     private Integer employeesNumber;
 
-    @OneToMany(mappedBy = "company",targetEntity = Employee.class,fetch = FetchType.LAZY)
-//    @JoinColumn(referencedColumnName = "id", nullable = false)
-    private Set<Employee> employees = new HashSet<>();
+    @OneToMany(mappedBy = "company")
+    private List<Employee> employees = new ArrayList<>();
 
     public Company() {
     }
@@ -53,11 +54,11 @@ public class Company implements Serializable {
         this.employeesNumber = employeesNumber;
     }
 
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Set<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }
